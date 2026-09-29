@@ -1,0 +1,274 @@
+# Allgemeine Aufgabe
+
+Deine Aufgabe ist es, die bereitgestellte Datei/en oder den bereitgestellten Inhalt in ein Audiobuch umzuwandeln.
+
+Konvertiere zunächst den bereitgestellten Inhalt in eine strukturierte Markdown-Datei und erstelle anschließend die entsprechenden Audiodateien.
+
+TTS-Modell für das Generieren der Sprache: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+
+Sprache des Audiobuches: Deutsch
+
+## Mögliche Eingabeformate
+
+Es können verschiedene Eingabeformate vorkommen:
+
+PDF-Dateien
+Links oder Webseiten
+Bilder
+Einfacher Text
+### PDF-Dateien
+
+Extrahiere alle relevanten Texte aus der PDF-Datei und konvertiere sie in eine strukturierte Markdown-Datei.
+
+Extrahiere außerdem alle relevanten Bilder aus der PDF-Datei und füge sie an den jeweils richtigen inhaltlichen Positionen in die Markdown-Datei ein.
+
+Da Bilder und Grafiken in PDFs oft aus mehreren Elementen bestehen und sich nicht zuverlässig direkt extrahieren lassen, sollten relevante Seiten bei Bedarf als Bilder gerendert und die enthaltenen Grafiken anschließend ausgeschnitten werden.
+
+Integriere die extrahierten Bilder in die Markdown-Datei mit einer detaillierten Bildbeschreibung was auf dem Bild zu sehen ist.
+
+![Bildbeschreibung]\(bild.jpg)
+
+### Links oder Webseiten
+
+Extrahiere die Inhalte der Internetseite des bereitgestellten Links.
+
+Konvertiere den Hauptinhalt der Seite in eine strukturierte Markdown-Datei.
+
+Konzentriere dich ausschließlich auf den eigentlichen Hauptinhalt der Seite.
+
+Ignoriere Elemente, die nicht zum primären Inhalt gehören, darunter: Navigationsleisten, Menüs, Footer, Seitenleisten, Cookie-Banner, Werbung und andere wiederkehrende Elemente der Benutzeroberfläche einer Webseite.
+
+Extrahiere auch die Bilder der Internetseite und evaluiere, ob diese relevant sind für den Inhalt. Integriere alle relevanten Bilder in die Markdown-Datei.
+
+Schreibe auch zu jedem Bild eine detaillierte Bildbeschreibung was auf dem Bild zu sehen ist und verwende diese in der finalen Markdown-Datei.
+
+### Bilder
+
+Extrahiere alle relevanten Texte aus den bereitgestellten Bildern.
+
+Formatiere den extrahierten Text als Markdown.
+
+Wenn mehrere Bilder bereitgestellt werden, führe die daraus resultierenden Markdown-Inhalte zu einer einzigen strukturierten Markdown-Datei zusammen.
+
+Stelle sicher, dass die Inhalte in einer sinnvollen und kontextuell korrekten Reihenfolge angeordnet sind.
+
+Wenn zwischen den extrahierten Texten Bilder sind, welche relevant für den Inhalt sind, dann schneide diese Bilder aus. Anschließend integriere die Bilder mit einer detaillierten Bildbeschreibung auch in die Markdown-Datei an den richtigen Stellen.
+
+### Einfache Texteingaben
+
+Falls direkt mit dem Prompt eine einfach Texteingabe mitkommt formatiere diesen Text sofort in eine strukturierte Markdown-Datei.
+
+## Projekt- und Verzeichnisstruktur
+
+Erstelle zu Beginn für jedes Audiobuch ein eigenes Projektverzeichnis. Alle während der Verarbeitung erzeugten Dateien müssen in einer klaren und konsistenten Ordnerstruktur abgelegt werden.
+
+Verwende grundsätzlich folgende Struktur:
+
+audiobook_project/
+├── input/
+│   └── original/
+├── assets/
+│   └── images/
+├── markdown/
+│   ├── original.md
+│   ├── audiobook_optimized.md
+│   └── chapters/
+│       ├── 001_kapitelname.md
+│       ├── 002_kapitelname.md
+│       └── ...
+├── audio/
+│   ├── segments/
+│   │   ├── 001_kapitelname/
+│   │   │   ├── 001_segment.mp3
+│   │   │   ├── 002_segment.mp3
+│   │   │   └── ...
+│   │   └── ...
+│   ├── chapters/
+│   │   ├── 001_kapitelname.mp3
+│   │   ├── 002_kapitelname.mp3
+│   │   └── ...
+│   └── final/
+│       ├── audiobook.mp3
+│       └── audiobook.m4b
+├── metadata/
+│   ├── chapters.txt
+│   └── cover.jpg
+└── temp/
+Die Ordner haben folgende Aufgaben:
+
+- input/original/: Enthält die ursprünglich bereitgestellten Eingabedateien, sofern diese als Dateien vorliegen.
+- assets/images/: Enthält alle aus PDFs, Webseiten oder Bildern extrahierten und für den Inhalt relevanten Bilder.
+- markdown/original.md: Enthält die vollständige strukturierte Markdown-Version des Ausgangsinhalts einschließlich relevanter Bilder und Tabellen.
+- markdown/audiobook_optimized.md: Enthält die für das Audiobuch-optimierte Fassung, in der Bilder und Tabellen in verständliche gesprochene Beschreibungen umgewandelt wurden.
+- markdown/chapters/: Enthält für jedes Unterkapitel eine eigene Markdown-Datei. Die Dateinamen müssen mit einer fortlaufenden Nummer beginnen, damit die Reihenfolge eindeutig bleibt.
+- audio/segments/: Enthält die einzelnen TTS-Audiosegmente. Für jedes Unterkapitel muss ein eigener Unterordner angelegt werden. Auch die Segmente müssen fortlaufend nummeriert werden.
+- audio/chapters/: Enthält die aus den jeweiligen Segmenten zusammengesetzten vollständigen Audiodateien der einzelnen Unterkapitel.
+- audio/final/: Enthält ausschließlich die finalen, vollständig geprüften Audiobuchdateien im MP3- und M4B-Format.
+- metadata/chapters.txt: Enthält die Kapitelreihenfolge sowie die für Kapitelmarker benötigten Informationen und Zeitpositionen.
+- metadata/cover.jpg: Enthält das Coverbild, das in die finalen Audiobuchdateien eingebettet werden soll.
+- temp/: Enthält ausschließlich temporäre Arbeitsdateien, beispielsweise gerenderte PDF-Seiten, Zwischenformate oder Dateien für die Audioverarbeitung. Temporäre Dateien dürfen erst gelöscht werden, wenn die finale Qualitätskontrolle erfolgreich abgeschlossen wurde.
+
+Verwende für Kapitel, Unterkapitel und Audiosegmente konsistente, fortlaufende Nummerierungen wie 001, 002, 003 usw. Bereinige Dateinamen von problematischen Sonderzeichen und stelle sicher, dass anhand der Dateinamen jederzeit die korrekte Reihenfolge rekonstruiert werden kann.
+
+Speichere keine finalen Dateien im temp-Ordner und überschreibe die ursprünglichen Eingabedateien nicht.
+
+# Erstellung der finalen Markdown-Datei
+
+Unabhängig vom Eingabeformat muss das Endergebnis eine vollständige und gut strukturierte Markdown-Datei sein.
+
+Die Datei soll:
+
+- in sinnvolle Kapitel und Abschnitte gegliedert sein,
+- alle relevanten Texte enthalten,
+- Bilder und Tabellen an den richtigen inhaltlichen Positionen berücksichtigen,
+
+# Optimierung für ein Audiobuch
+
+Optimiere die zuvor erstellte Markdown-Datei für die anschließende Audiogeneration im nächsten Schritt.
+
+Erstelle hierfür eine neue Audiobuch-optimierte Markdown-Datei.
+
+Das Problem ist, dass Bilder und Tabellen nicht direkt auf sinnvolle Weise vorgelesen werden können. Daher müssen sie in klare gesprochene Beschreibungen umgewandelt und in den Fließtext integriert werden.
+
+Entferne die Bilder und Tabellen aus der Markdown-Datei und integriere Beschreibungen von den Tabellen und Bildern, wo es sich sinnvoll in die Texte einfügt.
+
+Teile allerdings mit, dass du es sich um ein Bild oder eine Tabelle im Originalwerk handelt.
+
+Das Ergebnis soll eine optimierte Markdown-Datei sein für das Generieren eines Audiobuches.
+
+Gehe bei Bildern und Tabellen wie folgt vor:
+
+## Bilder
+
+Beschreibe jedes relevante Bild so, dass ein Zuhörer die wesentlichen Inhalte verstehen kann, ohne das Bild sehen zu müssen.
+
+Die Beschreibung sollte sich natürlich in die umgebende Erzählung einfügen.
+
+## Tabellen
+
+Erwähne bei Tabellen ausdrücklich, dass sich an dieser Stelle im ursprünglichen Buch oder Dokument eine Tabelle befindet.
+
+Wandle anschließend den Inhalt der Tabelle in verständliche und gut nachvollziehbare Fließtexte um.
+
+Beachte dabei folgende Regeln:
+
+### Kleine und mittelgroße Tabellen
+
+Beschreibe alle relevanten Tabelleninhalte in natürlicher und verständlicher Sprache.
+
+### Sehr große Tabellen
+
+Fasse die Tabelle zusammen und nenne nur die wichtigsten Fakten, Werte, Zusammenhänge und Schlussfolgerungen.
+
+Vermeide es, große Tabellen Zeile für Zeile vorzulesen, wenn dies in Audioform schwer verständlich wäre.
+
+Formuliere die Informationen so um, dass sie sich natürlich in die Erzählung des Audiobuchs einfügen.
+
+Wenn die vorgegeben Sprache und die Sprache der Informationsquelle sich voneinander unterscheiden, dann übersetze zuerst die optimierte Markdown-Datei in die vorgegebene Zielsprache bevor die mit der Audiogenerierung weiter fortfährst.
+
+Am Ende unterteile die optimierte Markdown-Datei in viele kleine Markdown-Dateien basierend auf den Unterkapiteln für die anschließende Generierung des Audiobuches.
+
+Jedes Unterkapitel soll hier einzeln generiert werden.
+
+# Generierung des Audiobuches
+
+Erstelle nun das gesamte Audiobuch, in dem du mit Hilfe des vorgegebenen TTS-Modells die einzelnen Kapitel in Audio umwandelst basierend auf den gegeben Vorgaben.
+
+## Stimmendesign
+
+Verwende hierfür das vorgegebene TTS-Modell vom Anfang des Prompts.
+
+Mache den Nutzer darauf aufmerksam, wenn die vorgegebene Sprache nicht vom angegebenen TTS-Modell zur Verfügung gestellt wird.
+
+Wenn das Audio-Modell Stimmendesign (Voice Design) zur Verfügung stellt, dann verwende den folgenden Stimmenprompt:
+
+A warm, mature professional English audiobook narrator with a calm, trustworthy and intelligent tone, clear neutral English articulation, moderate relaxed pacing, natural restrained expressiveness, and subtle pauses at headings and transitions.
+
+Wenn kein Stimmendesign zur Verfügung steht, dann wähle eine angebotene Stimme, welche ähnlich zu dieser Stimme ist.
+
+Erweitere, verändere oder ergänze den Voice-Design-Prompt und Stimme während der Verarbeitung nicht.
+
+Verwende für alle Kapitel und Textsegmente exakt dieselbe Stimmbeschreibung sowie dieselben relevanten Generierungsparameter, um die Sprecherstimme so konsistent wie möglich zu halten.
+
+Falls die Implementierung den offiziellen **VoiceDesign-then-Clone-Workflow** unterstützt, bevorzuge für maximale Stimmkonsistenz folgende Vorgehensweise:
+
+Erzeuge mit Qwen3-TTS-12Hz-1.7B-VoiceDesign und dem definierten Voice-Design-Prompt einen kurzen Referenzclip.
+Verwende diesen Referenzclip, um einen wiederverwendbaren Voice-Cloning-Prompt beziehungsweise eine wiederverwendbare Sprecheridentität zu erstellen.
+Verwende exakt dieselbe geklonte Sprecheridentität für alle Segmente des Audiobuchs
+Dadurch sollen auffällige Veränderungen von Klangfarbe, Tonhöhe, Sprechstil oder Sprecheridentität zwischen einzelnen TTS-Generierungen verhindert werden.
+
+Falls dieser Workflow technisch nicht verfügbar ist, verwende bei jeder VoiceDesign-Generierung exakt denselben instruct-Text und identische relevante Generierungsparameter.
+
+## Vorgehensweise bei der Audiogenerierung
+
+Da das TTS-Modell möglicherweise nicht in der Lage ist, ein komplettes Kapitel in einer einzigen Generierung zu verarbeiten, teile lange Kapitel in kleinere, logisch zusammenhängende Textsegmente auf.
+
+Trenne Segmente ausschließlich an natürlichen sprachlichen Grenzen,
+
+beispielsweise:
+
+- zwischen Absätzen,
+- nach vollständig abgeschlossenen Gedanken,
+- zwischen Unterabschnitten,
+- niemals mitten in einem Satz.
+
+Jedes Segment sollte groß genug sein, um einen natürlichen Sprachfluss zu erhalten, aber gleichzeitig klein genug, um zuverlässig vom TTS-Modell verarbeitet werden zu können.
+
+Erzeuge für jedes Textsegment eine eigene Audiodatei.
+
+Füge anschließend alle Audiodateien, die zu demselben Kapitel gehören, in der korrekten Reihenfolge zu einer einzigen Kapitel-Audiodatei zusammen.
+
+Am Ende soll für jedes Kapitel eine vollständige Audiodatei vorhanden sein.
+
+## Auslesen von Kapitelüberschriften
+
+Kapitelüberschriften und Abschnittsüberschriften müssen ebenfalls vorgelesen werden.
+
+Eine Kapitelüberschrift sollte sich akustisch vom normalen Fließtext unterscheiden, ohne das zugrunde liegende Voice Design zu verändern.
+
+Verwende hierfür natürliche Pausen.
+
+Füge nach jeder Kapitelüberschrift eine kurze Pause ein, bevor die eigentliche Erzählung des Kapitels beginnt.
+
+## Zusammenfügen des Audiobuchs
+
+Füge abschließend alle Kapitel-Audiodateien in der richtigen Reihenfolge zu einer einzigen vollständigen Audiobuchdatei zusammen.
+
+Füge zwischen den Kapiteln eine kurze Pause ein, sodass der Zuhörer den Beginn eines neuen Kapitels eindeutig erkennen kann.
+
+Erstelle für jedes kleine Unterkapitel Kapitelmarker, damit der Hörer schnell bei sehr langen Audiobüchern an die richtige Stelle springen kann.
+
+Stelle sicher, dass:
+
+- die Reihenfolge der Kapitel korrekt ist,
+- keine Textsegmente fehlen,
+- keine Textsegmente doppelt vorkommen,
+- die Übergänge zwischen einzelnen Segmenten innerhalb eines Kapitels natürlich klingen,
+- Lautstärke und allgemeiner Klangcharakter konsistent bleiben,
+- die Sprecheridentität über das gesamte Audiobuch hinweg so konsistent wie möglich bleibt,
+- Kapitelübergänge eine deutlich wahrnehmbare, aber nicht übermäßig lange Pause enthalten,
+- die finale Audiodatei das vollständige Audiobuch enthält.
+
+Das Audiobuch soll am Ende im .mp3 und .m4b-Format vorliegen mit Kapitelmarkern und einem Coverbild
+
+# Qualitätskontrolle
+
+Führe am Ende eine Qualitätskontrolle durch, ob das gesamte Audiobuch richtig generiert wurde.
+
+Orientiere dich hierfür an den folgenden Punkten.
+
+Überprüfe vor der Fertigstellung des Audiobuchs, dass:
+
+- alle Kapitel enthalten sind
+- alle Inhalte in der richtigen Reihenfolge vorgelesen werden
+- die gesamte gesprochene Erzählung in der vorgegebenen Zielsprache ist
+- Bilder und Tabellen in verständliche gesprochene Beschreibungen umgewandelt wurden
+- keine Markdown-Syntax versehentlich vorgelesen wird
+- kein Bild und keine Tabelle ohne entsprechende Beschreibung übersprungen wird
+- die Sprecherstimme zwischen allen Segmenten konsistent bleibt,
+- keine Audiodateien fehlen oder doppelt vorkommen,
+- der Anfang und das Ende einzelner Audiosegmente nicht abgeschnitten sind,
+- die Pausen zwischen Kapiteln natürlich klingen,
+- die finale zusammengefügte Datei das vollständige Audiobuch enthält.
+
+Erstelle die finale zusammengefügte Audiobuchdatei erst, nachdem alle Qualitätskontrollen abgeschlossen wurden.
